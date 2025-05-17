@@ -1,9 +1,12 @@
+// utils/asyncHandler.js
 const asyncHandler = (requestHandler) => {
-    (req, res, next) => {
+    // This is the function that Express will actually call
+    // So, we need to return it from asyncHandler
+    return (req, res, next) => {
         Promise.resolve(requestHandler(req, res, next))
-            .catch((err) => next(err))
-    }
-}
+            .catch((err) => next(err)); // Pass any caught errors to the next error-handling middleware
+    };
+};
 
 export default asyncHandler;
 
